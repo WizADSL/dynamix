@@ -64,10 +64,10 @@ TEMP_HIGH=45       # Anything this number and above - fan is *full*
 # what numbers you want to use for your fan pwm settings. Should not need to
 # change the OFF variable, only the LOW and maybe also HIGH to what you desire.
 # Any real number between 0 and 255.
-PWM_OFF_OFFSET=30  # Offset on turning off PWM = (PWM_LOW - PWM_OFF_OFFSET)
-PWM_ON_OFFSET=30   # Offset on turning on PWM = (PWM_CALCULATED + PWM_ON_OFFSET)
-PWM_OFF=0          # Off Value (note: many PWM fans will not turn off)
-PWM_LOW=35         # Value to make your fan go slow
+PWM_OFF_OFFSET=0  # Offset on turning off PWM = (PWM_LOW - PWM_OFF_OFFSET)
+PWM_ON_OFFSET=0   # Offset on turning on PWM = (PWM_CALCULATED + PWM_ON_OFFSET)
+PWM_OFF=30         # Off Value (note: many PWM fans will not turn off)
+PWM_LOW=30         # Value to make your fan go slow
 PWM_HIGH=255       # Value to make your fan go fast
 
 INTERVAL=5         # The default number of minutes to loop
@@ -239,9 +239,9 @@ function_get_current_fan_speed() {
 function_calc_new_fan_speed() {
   # Calculate new fan values based on highest drive temperature
   if [[ $HIGHEST_TEMP -le $TEMP_LOW ]]; then
-    ADJUSTED_FAN_SPEED=$PWM_OFF
-    ADJUSTED_PERCENT_SPEED=0
-    ADJUSTED_OUTPUT="OFF"
+    ADJUSTED_FAN_SPEED=$PWM_LOW
+    ADJUSTED_PERCENT_SPEED=$(($(($ADJUSTED_FAN_SPEED*100))/$PWM_HIGH))
+    ADJUSTED_OUTPUT=$ADJUSTED_FAN_SPEED
   else
     if [[ $HIGHEST_TEMP -ge $TEMP_HIGH ]]; then
       ADJUSTED_FAN_SPEED=$PWM_HIGH
