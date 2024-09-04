@@ -66,7 +66,7 @@ TEMP_HIGH=45       # Anything this number and above - fan is *full*
 # Any real number between 0 and 255.
 PWM_OFF_OFFSET=0  # Offset on turning off PWM = (PWM_LOW - PWM_OFF_OFFSET)
 PWM_ON_OFFSET=0   # Offset on turning on PWM = (PWM_CALCULATED + PWM_ON_OFFSET)
-PWM_OFF=30         # Off Value (note: many PWM fans will not turn off)
+PWM_OFF=0         # Off Value (note: many PWM fans will not turn off)
 PWM_LOW=30         # Value to make your fan go slow
 PWM_HIGH=255       # Value to make your fan go fast
 
